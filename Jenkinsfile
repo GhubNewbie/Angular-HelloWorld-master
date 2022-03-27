@@ -8,16 +8,16 @@ pipeline {
     stages {
         stage('NPM Install') {
             steps {
-
                 sh 'npm install'
             }
         }
         
         stage('Build') {
             steps {
-                sh 'npm run build'
+                
                 sh 'npm fund'
                 sh 'npm audit fix --force'
+                sh 'npm run build'
             }
         }
         stage('Archive') {
