@@ -18,14 +18,10 @@ pipeline {
                 sh 'npm fund'
                 sh 'npm audit fix --force'
                 sh 'npm run build'
+                sh 'ng build'
             }
         }
-        stage('Archive') {
-            steps {
-              sh "cd dist && zip -r ../${DIST_ARCHIVE}.zip . && cd .."
-              archiveArtifacts artifacts: "${DIST_ARCHIVE}.zip", fingerprint: true
-            }
-        }
+
         stage('Deploy') {
             steps {
                 sshagent(['ansible_demo']){
