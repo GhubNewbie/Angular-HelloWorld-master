@@ -9,16 +9,13 @@ pipeline {
         stage('NPM Install') {
             steps {
 
-                sh 'npm install --verbose -d'
+                sh 'npm install'
             }
         }
-        stage('Test') {
-            steps {
-                sh 'npm run test'
-            }
-        }
+        
         stage('Build') {
             steps {
+                sh 'npm run clean'
                 sh 'npm run build'
             }
         }
@@ -31,9 +28,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 sshagent(['ansible_demo']){
-                    sh "ssh ec2-user@3.87.47.98 rm -rf /var/www/temp_deploy/dist/"
-                    sh "ssh ec2-user@3.87.47.98 rmkdir -p /var/www/temp_deploy"
-                    sh "scp -r dist ec2-user@3.87.47.98:/var/www/temp_deploy/dist/"
+                    sh "ssh ec2-user@52.90.245.71 rm -rf /var/www/temp_deploy/dist/"
+                    sh "ssh ec2-user@52.90.245.71 rmkdir -p /var/www/temp_deploy"
+                    sh "scp -r dist ec2-user@52.90.245.71:/var/www/temp_deploy/dist/"
                     sh "ssh user@server “rm -rf /var/www/example.com/dist/ && mv /var/www/temp_deploy/dist/ /var/www/example.com/”"
                 }
                 
