@@ -14,9 +14,8 @@ pipeline {
         
         stage('Build') {
             steps {
-                
-                sh 'npm fund'
                 sh 'npm audit fix --force'
+                sh 'npm fund'
                 sh 'npm run build'
                 sh 'ng build'
             }
