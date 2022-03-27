@@ -9,13 +9,13 @@ pipeline {
         stage('NPM Install') {
             steps {
                 sh 'npm install -g'
+                sh 'npm install -g @angular/cli'
             }
         }
         
         stage('Build') {
             steps {
                 sh 'npm audit fix --force'
-                sh 'npm fund'
                 sh 'npm run build'
                 sh 'nmp run ng build'
             }
