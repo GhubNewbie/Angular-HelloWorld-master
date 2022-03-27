@@ -16,6 +16,8 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm run build'
+                sh 'npm fund'
+                sh 'npm audit fix --force'
             }
         }
         stage('Archive') {
