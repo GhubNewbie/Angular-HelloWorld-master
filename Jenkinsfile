@@ -8,7 +8,8 @@ pipeline {
     stages {
         stage('NPM Install') {
             steps {
-                sh 'npm install -g'
+                sh 'npm install -g @angular/cli@latest'
+                sh 'ng update @angular/cli @angular/core --allow-dirty --force'
             }
         }
         
