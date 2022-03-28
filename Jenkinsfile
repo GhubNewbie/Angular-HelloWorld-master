@@ -24,7 +24,7 @@ pipeline {
                 sshagent(['apache']){
                     sh 'ssh -o StrictHostKeyChecking=no ec2-user@18.207.200.20 "rm -rf /var/www/html/dist/"'
                     sh 'ssh -o StrictHostKeyChecking=no ec2-user@18.207.200.20 "mkdir -p /var/www/html"'
-                    sh 'scp -r dist ec2-user@18.207.200.20:/var/www/html/*'
+                    sh 'scp -r ${WORKSPACE}/dist/* ec2-user@18.207.200.20:/var/www/html/'
                 }
                 
             }
