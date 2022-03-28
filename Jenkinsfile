@@ -4,7 +4,7 @@ pipeline {
     tools {nodejs "node"}
     
 
-    try {
+    //try {
         notify('INITIALIZED')
     stages {
             stage('NPM Install') {
@@ -31,12 +31,12 @@ pipeline {
                 }
             }   
     }
-        } catch (e) {
+        /*} catch (e) {
             currentBuild.result = "FAILED"
             throw e
         } finally {
             notify(currentBuild.result)
-        }
+        } */
 }
 
 def notify(String buildStatus) {
