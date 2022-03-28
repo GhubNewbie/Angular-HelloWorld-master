@@ -3,44 +3,37 @@ node {
 //     agent any
 //     tools {nodejs "node"}
     
-    //try {
-    notify('INITIALIZED')
+    try {
+        notify('INITIALIZED')
     
-    stage('Git Checkout'){
-        git 'https://github.com/Uokereh/Angular-HelloWorld-master.git'
-    }
+        stage('Git Checkout'){
+            git 'https://github.com/Uokereh/Angular-HelloWorld-master.git'
+        }
     
-//     stages {
-            stage('NPM Install') {
-//                 steps {
-                    sh 'npm install'
-//                 }
-            }
-        
-            stage('Build') {
-//                 steps {
-                    sh 'npm run build'
-                    sh 'npm run ng build'
-//                 }
-            }
 
-            stage('Deploy') {
-//                 steps {
-                    sshagent(['apache']){
-                        sh 'ssh -o StrictHostKeyChecking=no ec2-user@18.207.200.20 "rm -rf /var/www/html/dist/"'
-                        sh 'ssh -o StrictHostKeyChecking=no ec2-user@18.207.200.20 "mkdir -p /var/www/html"'
-                        sh 'scp -r ${WORKSPACE}/dist/* ec2-user@18.207.200.20:/var/www/html/'
-                    }
+        stage('NPM Install') {
+            sh 'npm install'
+        }
+        
+        stage('Build') {
+            sh 'npm run build'
+            sh 'npm run ng build'
+        }
+
+        stage('Deploy') {
+            sshagent(['apache']){
+                sh 'ssh -o StrictHostKeyChecking=no ec2-user@18.207.200.20 "rm -rf /var/www/html/dist/"'
+                sh 'ssh -o StrictHostKeyChecking=no ec2-user@18.207.200.20 "mkdir -p /var/www/html"'
+                sh 'scp -r ${WORKSPACE}/dist/* ec2-user@18.207.200.20:/var/www/html/'
+            }
                 
-//                 }
-            }   
-//     }
-        /*} catch (e) {
+        }   
+    } catch (e) {
             currentBuild.result = "FAILED"
             throw e
-        } finally {
+    } finally {
             notify(currentBuild.result)
-        } */
+    }
 }
 
 def notify(String buildStatus) {
