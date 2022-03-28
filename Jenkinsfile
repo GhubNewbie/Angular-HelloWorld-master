@@ -1,6 +1,6 @@
 
 node {
-    agent any
+//     agent any
     tools {nodejs "node"}
     
     //try {
