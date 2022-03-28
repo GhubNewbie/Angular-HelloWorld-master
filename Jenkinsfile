@@ -22,10 +22,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 sshagent(['apache']){
-                    sh "ssh ec2-user@18.207.200.20 rm -rf /var/www/html/dist/"
-                    sh "ssh ec2-user@18.207.200.20 rmkdir -p /var/www/html"
-                    sh "scp -r dist ec2-user@18.207.200.20:/var/www/html/dist/*"
-                    sh "ssh ec2-user@18.207.200.20 “rm -rf /var/www/example.com/dist/ && mv /var/www/temp_deploy/dist/ /var/www/example.com/”"
+                    sh 'ssh -t ec2-user@18.207.200.20 "rm -rf /var/www/html/dist/"'
+                    sh 'ssh -t ec2-user@18.207.200.20 "mkdir -p /var/www/html"'
+                    sh 'scp -r dist ec2-user@18.207.200.20:/var/www/html/*'
                 }
                 
             }
