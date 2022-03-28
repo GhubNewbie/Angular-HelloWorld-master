@@ -8,26 +8,24 @@ pipeline {
     stages {
         stage('NPM Install') {
             steps {
-                sh 'npm install -g'
-                sh 'npm install -g @angular/cli'
+                sh 'npm install'
             }
         }
         
         stage('Build') {
             steps {
-                sh 'npm audit fix --force'
                 sh 'npm run build'
-                sh 'nmp run ng build'
+                sh 'npm run ng build'
             }
         }
 
         stage('Deploy') {
             steps {
                 sshagent(['ansible_demo']){
-                    sh "ssh ec2-user@52.90.245.71 rm -rf /var/www/html/dist/"
-                    sh "ssh ec2-user@52.90.245.71 rmkdir -p /var/www/html"
-                    sh "scp -r dist ec2-user@52.90.245.71:/var/www/html/dist/*"
-                    sh "ssh user@server “rm -rf /var/www/example.com/dist/ && mv /var/www/temp_deploy/dist/ /var/www/example.com/”"
+                    sh "ssh ec2-user@8.207.200.20 rm -rf /var/www/html/dist/"
+                    sh "ssh ec2-user@8.207.200.20 rmkdir -p /var/www/html"
+                    sh "scp -r dist ec2-user@8.207.200.20:/var/www/html/dist/*"
+                    sh "ssh ec2-user@8.207.200.20 “rm -rf /var/www/example.com/dist/ && mv /var/www/temp_deploy/dist/ /var/www/example.com/”"
                 }
                 
             }
