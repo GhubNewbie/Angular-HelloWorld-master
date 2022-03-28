@@ -1,5 +1,5 @@
 
-pipeline {
+node {
     agent any
     tools {nodejs "node"}
     
@@ -37,7 +37,7 @@ pipeline {
         } finally {
             notify(currentBuild.result)
         } */
-
+}
 
 def notify(String buildStatus) {
             
@@ -48,5 +48,4 @@ def notify(String buildStatus) {
         <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
         recipientProviders: [[$class: 'DevelopersRecipientProvider']]
     )
-}
 }
