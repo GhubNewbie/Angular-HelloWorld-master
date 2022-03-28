@@ -3,10 +3,14 @@ node {
     agent any
     tools {nodejs "node"}
     
-
     //try {
-        notify('INITIALIZED')
-    stages {
+    notify('INITIALIZED')
+    
+    stage('Git Checkout'){
+        git 'https://github.com/Uokereh/Angular-HelloWorld-master.git'
+    }
+    
+//     stages {
             stage('NPM Install') {
                 steps {
                     sh 'npm install'
@@ -30,7 +34,7 @@ node {
                 
                 }
             }   
-    }
+//     }
         /*} catch (e) {
             currentBuild.result = "FAILED"
             throw e
