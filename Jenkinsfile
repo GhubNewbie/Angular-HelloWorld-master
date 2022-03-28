@@ -21,7 +21,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sshagent(['ansible_demo']){
+                sshagent(['apache']){
                     sh "ssh ec2-user@8.207.200.20 rm -rf /var/www/html/dist/"
                     sh "ssh ec2-user@8.207.200.20 rmkdir -p /var/www/html"
                     sh "scp -r dist ec2-user@8.207.200.20:/var/www/html/dist/*"
