@@ -21,9 +21,9 @@ node {
 
         stage('Deploy') {
             sshagent(['apache']){
-                sh 'ssh -o StrictHostKeyChecking=no ec2-user@54.196.217.11 "rm -rf /var/www/html/dist/*"'
-                sh 'ssh -o StrictHostKeyChecking=no ec2-user@54.196.217.11 "mkdir -p /var/www/html"'
-                sh 'scp -r ${WORKSPACE}/dist/notus-angular/* ec2-user@54.196.217.11:/var/www/html/'
+                sh 'ssh -o StrictHostKeyChecking=no ec2-user@3.80.132.100 "rm -rf /var/www/html/dist/*"'
+                sh 'ssh -o StrictHostKeyChecking=no ec2-user@3.80.132.100 "mkdir -p /var/www/html"'
+                sh 'scp -r ${WORKSPACE}/dist/notus-angular/* ec2-user@3.80.132.100:/var/www/html/'
             }
                 
         }   
